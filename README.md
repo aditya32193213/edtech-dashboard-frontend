@@ -196,7 +196,7 @@ Secure authentication page allowing users to log in using saved credentials with
 Browse all available courses with filtering, search functionality, and detailed course information.
 
 ### 👤 Profile Page
-![Profile Page Screenshot](./screenshots/profile.png)
+![Profile Page Screenshot](./screenshots/Profilepage.png)
 
 The profile page allows users to view and update their personal information, manage account details, and securely log out of the application.
 
