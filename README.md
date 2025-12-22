@@ -47,11 +47,11 @@ learnpro-edtech-frontend/
 │   │   ├── CourseCard.jsx
 │   │   ├── CourseDetailsSkeleton.jsx
 │   │   ├── Footer.jsx
-│   │   ├── Loader.jsx
 │   │   └── Navbar.jsx
+│   │   
 │   │
-│   ├── data/
-│   │   └── courses.js
+│   │
+│   │   
 │   │
 │   ├── pages/
 │   │   ├── About.jsx
@@ -91,9 +91,7 @@ learnpro-edtech-frontend/
 - **components/** – Reusable UI components  
 - **pages/** – Application pages (Routes)  
 - **utils/** – Authentication & helper logic  
-- **routes/** – Protected routing logic  
-- **data/** – Static course data  
-- **assets/** – Images and static assets  
+- **routes/** – Protected routing logic   
 
 
 ---

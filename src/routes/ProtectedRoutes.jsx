@@ -1,18 +1,22 @@
-import { Navigate, useLocation } from "react-router-dom";
-import { isAuthenticated } from "../utils/auth.js";
+import { Navigate, Outlet } from "react-router-dom";
+import { isAuthenticated, getUser } from "../utils/auth";
 
-export default function ProtectedRoute({ children }) {
-  const location = useLocation();
+const ProtectedRoute = ({ allowedRoles }) => {
+  const isAuth = isAuthenticated();
+  const user = getUser();
 
-  if (!isAuthenticated()) {
-    return (
-      <Navigate
-        to="/login"
-        replace
-        state={{ from: location.pathname }}
-      />
-    );
+  if (!isAuth) {
+    return <Navigate to="/login" />;
   }
 
-  return children;
-}
+  
+  if (allowedRoles && !allowedRoles.includes(user?.role)) {
+    return user?.role === "instructor" 
+      ? <Navigate to="/dashboard/instructor" /> 
+      : <Navigate to="/dashboard" />;
+  }
+
+  return <Outlet />;
+};
+
+export default ProtectedRoute;

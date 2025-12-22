@@ -15,21 +15,17 @@ import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./routes/ProtectedRoutes.jsx";
 import Profile from "./pages/Profile.jsx";
-
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentCancel from "./pages/PaymentCancel";
+import AddCourse from "./pages/AddCourse";
+import InstructorDashboard from "./pages/InstructorDashboard";
+import EditCourse from "./pages/EditCourse";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
 
-  /* Load saved theme */
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
-      setDarkMode(true);
-      document.documentElement.classList.add("dark");
-    }
-  }, []);
-
-  /* Apply theme */
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -43,18 +39,29 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
-       <Toaster position="top-center"  toastOptions={{  duration: 3000 }} />
+      <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/courses/:id" element={<CourseDetails />} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
-        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>}/>
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="*" element={<NotFound />} />
+          {/* Public routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/courses/:id" element={<CourseDetails />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route path="/payment-cancel" element={<PaymentCancel />} />
+          
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<Profile />} />
+            
+            <Route path="/dashboard/instructor" element={<InstructorDashboard />} />
+            <Route path="/add-course" element={<AddCourse />} />
+            <Route path="/edit-course/:id" element={<EditCourse />} />
+          </Route>
+
+          <Route path="*" element={<NotFound />} />
       </Routes>
 
       <Footer />
